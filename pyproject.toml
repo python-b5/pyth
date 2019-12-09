@@ -1,0 +1,13 @@
+[tool]
+[tool.poetry]
+authors = ["Your Name <you@example.com>"]
+name = "root"
+version = "0.0.0"
+[tool.poetry.dependencies]
+flask = "==1.0.2"
+flask-whooshalchemy = "*"
+python = "^3.7"
+sqlalchemy = "*"
+flask-sqlalchemy = "^2.4"
+validator-collection = "^1.3"
+flask-migrate = "^2.5"

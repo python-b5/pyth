@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{ link }}</title>
+    <link rel="stylesheet" href="/static/wing.css"/>
+  </head>
+  <body style="max-width: 50%; display: block; margin-left: auto; margin-right: auto;">
+    <p>This link goes here:<br><code>{{ target }}</code></p>
+    <button onclick="window.location.replace('{{ target }}')">Continue</button>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Decoded!</title>
+    <link rel="stylesheet" href="/static/wing.css"/>
+  </head>
+  <body style="max-width: 50%; display: block; margin-left: auto; margin-right: auto;">
+    <h2>Decoded!</h2>
+    <p>This link goes here:<br><code>{{ target }}</code></p>
+    <button onclick="window.location.replace('{{ target }}')">Visit link</button>
+    <button onclick="window.location.href = '/';">Return to main page</button>
+  </body>
+</html>

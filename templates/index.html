@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>pyth</title>
+    <link rel="stylesheet" href="/static/wing.css"/>
+  </head>
+  <body style="max-width: 50%; display: block; margin-left: auto; margin-right: auto;">
+    <h1>pyth</h1>
+    <h2>Make!</h2>
+    <p>The pyth link is the end of the shortened link, like so: <code>pyth.link/link</code><br>Leave the pyth link field blank to make a random one.</p>
+    <p>The target link is where the shortened link will redirect to; it's the link you are shortening.</p>
+    <p>The password is what you use to edit the link, and prove that you are its owner.</p>
+    <form action="/make">
+        <input type="text" placeholder="pyth link" name="link" required></input>
+        <input type="url" placeholder="target link" name="target" required></input>
+        <input type="password" placeholder="password" name="password" required></input>
+        <input type="submit" value="Make link!"></input>
+    </form>
+    <br>
+    <h2>Edit!</h2>
+    <h3>Change a link's pyth link!</h3>
+    <form action="/change-link">
+        <input type="text" placeholder="pyth link" name="link" required></input>
+        <input type="password" placeholder="password" name="password" required></input>
+        <input type="text" placeholder="new pyth link" name="new_link" required></input>
+        <input type="submit" value="Change pyth link!"></input>
+    </form>
+    <br>
+    <h3>Change a link's target link!</h3>
+    <form action="/change-target">
+        <input type="text" placeholder="pyth link" name="link" required></input>
+        <input type="password" placeholder="password" name="password" required></input>
+        <input type="url" placeholder="new target link" name="new_target" required></input>
+        <input type="submit" value="Change target link!"></input>
+    </form>
+    <br>
+    <h3>Delete a link!</h3>
+    <form action="/delete">
+        <input type="text" placeholder="pyth link" name="link" required></input>
+        <input type="password" placeholder="password" name="password" required></input>
+        <input type="submit" value="Delete link!"></input>
+    </form>
+    <br>
+    <h2>Extras!</h2>
+    <button onclick="window.location.href = '/decoder';">Decode a link!</button>
+    <h3>Peek mode!</h3>
+    <p>Using this mode, you can easily see where a link goes!<br>Peek mode will show a preview page when a link is viewed, so you can see where you'll end up. It will create a cookie in your browser.<br><br>Alternatively, you can go to <code>/peek/link</code> instead of <code>/link</code> to get a preview page without activating peek mode.</p>
+    <p>Peek mode status: <b>{{ peek }}</b></p>
+    <button onclick="window.location.replace('/toggle-peek')">Toggle peek mode!</button>
+  </body>
+</html>
