@@ -7,3 +7,5 @@ flask-migrate
 alembic
 sqlalchemy
 validator-collection
+psycopg2
+gunicorn
