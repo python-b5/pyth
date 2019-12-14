@@ -155,7 +155,7 @@ def delete_link(link, password):
     if deleted_link:
         password_real = deleted_link.password
         if password == str(password_real):
-            User.query.filter_by(link=link).delete()
+            Link.query.filter_by(link=link).delete()
             db.session.commit()
             return render_template("removed.html")
         else:
