@@ -14,12 +14,12 @@ import os
 
 project_dir = os.path.dirname(os.path.abspath(__file__))
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(project_dir, 'links.db')
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+application = Flask(__name__)
+application.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(project_dir, 'links.db')
+application.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+db = SQLAlchemy(application)
+migrate = Migrate(application, db)
 
 class Link(db.Model):
     link = db.Column(db.String(80), unique=True, nullable=False, primary_key=True)
@@ -43,7 +43,7 @@ def make_url():
             link = ''.join(random.choices(chars, k=length))
             chosen = link not in tried
         
-        tried.append(link)
+        tried.applicationend(link)
         if Link.query.filter(Link.link == tried[-1]).first():
             length += 1
             tried = []
@@ -52,11 +52,11 @@ def make_url():
     
     return tried[-1]
 
-@app.shell_context_processor
+@application.shell_context_processor
 def make_shell_context():
     return {'db': db, 'Link': Link}
 
-@app.route('/<page>')
+@application.route('/<page>')
 def go_to_page(page):
     if request.cookies.get("peek") == "1":
         return redirect("peek/" + page)
@@ -67,7 +67,7 @@ def go_to_page(page):
         except:
             return render_template("error.html") 
 
-@app.route('/<page>/<extra>')
+@application.route('/<page>/<extra>')
 def go_to_page_extra(page, extra):
     if request.cookies.get("peek") == "1":
         return redirect("/peek/" + page + "/" + extra)
@@ -82,7 +82,7 @@ def go_to_page_extra(page, extra):
         except:
             return render_template("error.html") 
 
-@app.route('/peek/<page>')
+@application.route('/peek/<page>')
 def peek_page(page):
     try:
         target = Link.query.get(page).target
@@ -90,7 +90,7 @@ def peek_page(page):
     except:
         return render_template("error.html")
 
-@app.route('/peek/<page>/<extra>')
+@application.route('/peek/<page>/<extra>')
 def peek_page_extra(page, extra):
     try:
         target = Link.query.get(page).target
@@ -102,15 +102,15 @@ def peek_page_extra(page, extra):
     except:
         return render_template("error.html") 
 
-@app.route('/')
+@application.route('/')
 def index():
 	return render_template('index.html', peek="On" if request.cookies.get("peek") == "1" else "Off")
 
-@app.route('/decoder')
+@application.route('/decoder')
 def decode():
     return render_template('decode.html')
 
-@app.route('/toggle-peek')
+@application.route('/toggle-peek')
 def toggle_peek():
     resp = make_response(redirect("https://www.pyth.link"))
     if request.cookies.get("peek") in (None, "0"):
@@ -119,7 +119,7 @@ def toggle_peek():
         resp.set_cookie("peek", "0")
     return resp
 
-@app.route('/make', defaults={'target': None, 'link': None, 'password': None})
+@application.route('/make', defaults={'target': None, 'link': None, 'password': None})
 def make_link(target, link, password):  
     if link == None:
         link = request.args.get('link') 
@@ -141,7 +141,7 @@ def make_link(target, link, password):
         db.session.commit()
         return render_template("created.html", link=link, password=password)
 
-@app.route('/delete', defaults={'link': None, 'password': None})
+@application.route('/delete', defaults={'link': None, 'password': None})
 def delete_link(link, password):   
     if link == None:
         link = request.args.get('link')
@@ -160,7 +160,7 @@ def delete_link(link, password):
     except:
         return render_template("error.html")
 
-@app.route('/change-link', defaults={'link': None, 'password': None, 'new_link': None})
+@application.route('/change-link', defaults={'link': None, 'password': None, 'new_link': None})
 def change_link(link, password, new_link):   
     if link == None:
         link = request.args.get('link')
@@ -184,7 +184,7 @@ def change_link(link, password, new_link):
     except:
         return render_template("error.html")
 
-@app.route('/change-target', defaults={'link': None, 'password': None, 'new_target': None})
+@application.route('/change-target', defaults={'link': None, 'password': None, 'new_target': None})
 def change_target(link, password, new_target):   
     if link == None:
         link = request.args.get('link')
@@ -206,7 +206,7 @@ def change_target(link, password, new_target):
     except:
         return render_template("error.html")
 
-@app.route('/decode', defaults={'link': None})
+@application.route('/decode', defaults={'link': None})
 def decode_link(link):
     try:
         if link == None:
@@ -219,4 +219,4 @@ def decode_link(link):
         return render_template("error.html")
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8080)
+    application.run(host='0.0.0.0', port=8080)
