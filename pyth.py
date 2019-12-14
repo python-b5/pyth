@@ -29,6 +29,8 @@ class Link(db.Model):
     def __repr__(self):
         return "<Link: {}>".format(self.link)
 
+db.create_all()
+
 illegal_links = ["__repl", "peek", "decoder", "toggle-peek", "make", "delete", "change-link", "change-target", "decode"]
 
 def make_url():
