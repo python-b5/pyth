@@ -131,7 +131,7 @@ def make_link(target, link, password):
         target = "http://" + target
     if not ((link.isalnum() or not link) and password and checkers.is_url(target)):
         return render_template("input_error.html")
-    if Link.query.filter_by(link == link).first() or link in illegal_links:
+    if Link.query.get(link) or link in illegal_links:
         return render_template("taken.html")
     else:
         if not link:
@@ -152,7 +152,7 @@ def delete_link(link, password):
     try:
         password_real = Link.query.get(link).password
         if password == str(password_real):
-            Link.query.filter_by(link=link).delete()
+            Link.query.get(link).delete()
             db.session.commit()
             return render_template("removed.html")
         else:
@@ -179,7 +179,7 @@ def change_link(link, password, new_link):
             return render_template("changed.html")
         elif password != str(password_real):
             return render_template("wrong.html")
-        elif Link.query.filter(Link.link == new_link).first() or link in illegal_links:
+        elif Link.query.get(link) or link in illegal_links:
             return render_template("taken.html")
     except:
         return render_template("error.html")
