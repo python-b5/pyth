@@ -1,7 +1,6 @@
 Flask==1.0.2
 Flask-WhooshAlchemy
 SQLAlchemy
-flask
 flask-sqlalchemy
 flask-migrate
 alembic
