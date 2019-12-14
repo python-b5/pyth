@@ -151,15 +151,16 @@ def delete_link(link, password):
         password = request.args.get('password')
     if not (link and password):
         return render_template("input_error.html")
-    try:
-        password_real = Link.query.get(link).password
+    deleted_link = Link.query.get(link)
+    if deleted_link:
+        password_real = deleted_link.password
         if password == str(password_real):
-            Link.query.get(link).delete()
+            deleted_link.delete()
             db.session.commit()
             return render_template("removed.html")
         else:
             return render_template("wrong.html")
-    except:
+    else:
         return render_template("error.html")
 
 @application.route('/change-link', defaults={'link': None, 'password': None, 'new_link': None})
