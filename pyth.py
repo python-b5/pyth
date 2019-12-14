@@ -131,7 +131,7 @@ def make_link(target, link, password):
         target = "http://" + target
     if not ((link.isalnum() or not link) and password and checkers.is_url(target)):
         return render_template("input_error.html")
-    if Link.query.filter(Link.link == link).first() or link in illegal_links:
+    if Link.query.filter_by(link == link).first() or link in illegal_links:
         return render_template("taken.html")
     else:
         if not link:
