@@ -55,7 +55,7 @@ def make_url():
     return tried[-1]
 
 @application.shell_context_processor
-def make_shell_conString(255)):
+def make_shell_context():
     return {'db': db, 'Link': Link}
 
 @application.route('/<page>')
