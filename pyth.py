@@ -22,9 +22,9 @@ db = SQLAlchemy(application)
 migrate = Migrate(application, db)
 
 class Link(db.Model):
-    link = db.Column(db.Text(), unique=True, nullable=False, primary_key=True)
-    target = db.Column(db.Text(), nullable=False)
-    password = db.Column(db.Text(), nullable=False)
+    link = db.Column(db.String(255)), unique=True, nullable=False, primary_key=True)
+    target = db.Column(db.String(255)), nullable=False)
+    password = db.Column(db.String(255)), nullable=False)
 
     def __repr__(self):
         return "<Link: {}>".format(self.link)
@@ -55,7 +55,7 @@ def make_url():
     return tried[-1]
 
 @application.shell_context_processor
-def make_shell_context():
+def make_shell_conString(255)):
     return {'db': db, 'Link': Link}
 
 @application.route('/<page>')
