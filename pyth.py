@@ -24,7 +24,7 @@ migrate = Migrate(application, db)
 class Link(db.Model):
     link = db.Column(db.Text(), unique=True, nullable=False, primary_key=True)
     target = db.Column(db.Text(), nullable=False)
-    password = db.Column(db.Text())
+    password = db.Column(db.Text(), nullable=False)
 
     def __repr__(self):
         return "<Link: {}>".format(self.link)
