@@ -22,9 +22,9 @@ db = SQLAlchemy(application)
 migrate = Migrate(application, db)
 
 class Link(db.Model):
-    link = db.Column(db.String(255), unique=True, nullable=False, primary_key=True)
-    target = db.Column(db.String(255), nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    link = db.Column(db.Text(), unique=True, nullable=False, primary_key=True)
+    target = db.Column(db.Text(), nullable=False)
+    password = db.Column(db.Text(), nullable=False)
 
     def __repr__(self):
         return "<Link: {}>".format(self.link)
